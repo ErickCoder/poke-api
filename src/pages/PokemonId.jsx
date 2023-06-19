@@ -45,9 +45,55 @@ const pokeLinearGradients = {
   shadow: "bg-gradient-to-t from-[#5A5E5D] via-[#0D1211] to-[#030706]",
 };
 
+const textColor = {
+  "normal": 'text-[#735259]',
+  "fighting": 'text-[#96402Ah]',
+  "flying": 'text-purple-400',
+  "poison": 'text-[#5B3184]',
+  "ground": 'text-[#654008]',
+  "rock": 'text-[#7E7E7E]',
+  "bug": 'text-[#4AB648]',
+  "ghost": 'text-[#323569]',
+  "steel": 'text-[#5E736C]',
+  "fire": 'text-[#E75C35]',
+  "water": 'text-[#1479FB]',
+  "grass": 'text-[#416460]',
+  "electric": 'text-[#E5D734]',
+  "psychic": 'text-[#65743A]',
+  "ice": 'text-[#6FBEDF]',
+  "dragon": 'text-[#478A93]',
+  "dark": 'text-[#030706]',
+  "fairy": 'text-[#971B45]',
+  "unknown": 'text-slate-500',
+  "shadow": 'text-[#16E0BD]'
+}
+
+const bgColor = {
+  "normal": 'bg-[#BC6B7C]',
+  "fighting": 'bg-[#96402A]',
+  "flying": 'bg-purple-400',
+  "poison": 'bg-[#5B3184]',
+  "ground": 'bg-[#654008]',
+  "rock": 'bg-[#7E7E7E]',
+  "bug": 'bg-[#62DB60]',
+  "ghost": 'bg-[#323569]',
+  "steel": 'bg-[#5E736C]',
+  "fire": 'bg-[#E35825]',
+  "water": 'bg-[#1479FB]',
+  "grass": 'bg-[#ABDAC6]',
+  "electric": 'bg-[#F5E755]',
+  "psychic": 'bg-[#65743A]',
+  "ice": 'bg-[#64CBF5]',
+  "dragon": 'bg-[#478A93]',
+  "dark": 'bg-[#030706]',
+  "fairy": 'bg-[#971B45]',
+  "unknown": 'bg-slate-500',
+  "shadow": 'bg-[#16E0BD]'
+}
+
 const PokemonId = () => {
   const [pokemon, setPokemon] = useState(null);
-  console.log(pokemon);
+  console.log({ pokemon })
   const { pokemonName } = useParams();
 
   const percentPorgressStat = (baseStat) => {
@@ -69,35 +115,32 @@ const PokemonId = () => {
     <main>
       <Header />
 
-      <section className="mx-[80px] my-[180px]">
+      <section className="my-14 mx-3 mdd:mx-[80px] mdd:my-[180px] max-w-[1024px] lgg+1:mx-auto">
         {/*  Informacion detalle de pokemon */}
 
         {/* Gradiant and image */}
         <section
-          className={`relative h-36 ${
-            pokeLinearGradients[pokemon?.types[0].type.name]
-          }`}
+          className={`relative h-24 rounded-xl mdd:h-36 ${pokeLinearGradients[pokemon?.types[0].type.name]
+            }`}
         >
-          <div className="absolute px-12 left-1/2 -translate-x-1/2 -bottom-4">
+          <div className="absolute px-12 left-1/2 max-h-[314px] -translate-x-1/2 bottom-1 lgg:-bottom-4">
             <img
-              className="max-h-[314px]"
+              className=""
               src={pokemon?.sprites.other["official-artwork"].front_default}
               alt={pokemon?.name}
             />
           </div>
         </section>
+
         {/* pokemon id  */}
-   
-            <div className="mt-6 flex justify-center items-center">
-              <h2 className="text-center text-3xl mt-8 inline pt-2 px-4 border-2  border-gray-300 ">#{pokemon?.id}</h2>
-            </div>
-       
+        <div className="mt-6 flex justify-center">
+          <h2 className={`text-center text-3xl mt-2 mdd:mt-8 inline py-1 px-4 font-medium border-2 border-gray-100 ${textColor[pokemon?.types[0].type.name]}`}>#{pokemon?.id}</h2>
+        </div>
 
         {/* pokemn name   */}
-        <h2 className="text-center pt-4 text-4xl capitalize">{pokemon?.name}</h2>
+        <h2 className={`text-center font-medium pt-4 text-4xl capitalize ${textColor[pokemon?.types[0].type.name]}`}>{pokemon?.name}</h2>
 
         {/*   height, weight */}
-
         <section className="flex justify-center gap-12 pt-6">
           <div>
             <h4 className="font-medium">Height</h4>
@@ -110,11 +153,38 @@ const PokemonId = () => {
           </div>
         </section>
 
+        {/* type and abilities  */}
+        <section className="grid grid-cols gap-6 justify-center mdd:grid-cols-2 mt-6 justify-items-center capitalize">
+          <div>
+            <h2 className="text-center font-semibold">Type</h2>
+            <div className="mt-4 flex gap-4 lgg:flex lgg:gap-6 text-balck">
+              {
+                pokemon?.types.map((type) =>
+                  <span className={`border-[1px] px-3 py-1 lgg:px-6 lgg:py-1 text-white ${bgColor[pokemon?.types[0].type.name]}`} key={type.type.url}>{type.type.name}</span>
+                )
+              }
+            </div>
+          </div>
+
+
+          <div>
+            <h2 className="text-center font-semibold">Abilities</h2>
+            <div className="mt-4 flex gap-4 lgg:flex lgg:gap-6 text-black">
+              {
+                pokemon?.abilities.slice(0, 2).map((ability) => (
+                  <span className="border-[1px] px-3 border-gray-300 lgg:px-6 lgg:py-1" key={ability.ability.url}>{ability.ability.name}</span>
+                ))
+              }
+            </div>
+          </div>
+        </section>
+
+
         <article>
           {/* stats */}
-          <div>
-            <p className="font-semibold text-3xl">Stats</p>{" "}
-            <hr className="w-20 flex justify-end" />
+          <div className="flex items-center gap-4 mdd:gap-8 pt-12 max-w-[680px]">
+            <p className="font-semibold p-0 text-2xl mdd:text-3xl">Stats</p>{" "}
+            <div className="w-[680px] h-[2px] bg-gray-200 flex justify-end"></div>
           </div>
           <section className="mt-8">
             {pokemon?.stats.map((stat) => (
@@ -122,13 +192,13 @@ const PokemonId = () => {
                 className="font-bold grid gap-2 mt-2"
                 key={stat.stat.url}
               >
-                <section className="flex justify-between px-4">
-                  <h5>{stat?.stat.name.toUpperCase()}:</h5>
+                <section className="flex justify-between px-2 mdd:px-3">
+                  <h5 className="text-sm mdd:text-base">{stat?.stat.name.toUpperCase()}</h5>
                   <span>{stat?.base_stat}</span>
                 </section>
 
                 {/* barra de progeso de stat */}
-                <div className="bg-gray-300 h-8 overflow-hidden rounded-md">
+                <div className="bg-gray-200 h-8 overflow-hidden rounded-md">
                   <div
                     style={{ width: percentPorgressStat(stat.base_stat) }}
                     className={`h-full bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-700 `}
