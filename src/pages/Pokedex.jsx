@@ -3,6 +3,7 @@ import Header from "../components/pokedex/Header";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PokemonsList from "../components/pokedex/PokemonsList";
+import './styles/CardHover.css'
 
 const Pokedex = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -74,25 +75,27 @@ console.log(currentType)
 
 
   return (
-    <main>
+    <main className="">
       <Header />
-      <p className="mt-6 pl-2 text-[#FE1936] font-bold">
-        Welcome {nameTrainer},
-        <label className="text-black font-normal"> here, you can find your favorite Pokemon</label>
+        <div className='min-w-[100%] lgg:pt-6 text-center mdd:text-center p-2 flex justify-center max-w-[1024px]'>
+        <p className="mt-6 text-[#FE1936] font-bold">
+        Welcome {nameTrainer}!
+        <label className="text-black font-normal"> Here, you can find your favorite Pokemon.</label>
       </p>
+        </div>
     
-       <form onSubmit={handleSubmit} className="mdd:flex mdd:justify-center mdd:gap-9 mdd:p-0">
-        <div className="py-4 flex justify-center">
-          <input className=" drop-shadow-xl py-2 px-2 mdd:w-80"
+       <form onSubmit={handleSubmit} className="mdd:flex flex flex-col items-center gap-2 mdd:justify-center mdd:gap-3 mdd:py-4 lgg:flex lgg:flex-row lgg:justify-around max-w-[1024px] mx-auto">
+        <div className="py-4 ">
+          <input className="drop-shadow-md outline-none py-2 px-2 mdd:w-96 mdd:h-[48px]"
             id="namePokemon"
-            placeholder="type a name pokemon..."
+            placeholder="Type a pokemon name..."
             type="text"
           />
-          <button className="bg-[#D93F3F] text-white p-2 ">Search</button>
+          <button className="bg-[#D93F3F] hover:bg-[#e40f0f] hover:font-semibold text-white p-2 mdd:p-3">Search</button>
         </div>
 
-        <select onChange={handleChangeType} className="outline-none mdd:w-[211px] px-2">
-          <option value="">All</option>
+        <select onChange={handleChangeType} className="outline-none drop-shadow-md w-[250px] mdd:w-[400px] py-2 px-2 lgg:py-3 lgg:h-[48px]">
+          <option value="">All pokemons</option>
           {types.map((type) => (
             <option value={type.name} key={type.url}> {type.name}</option>
           ))}

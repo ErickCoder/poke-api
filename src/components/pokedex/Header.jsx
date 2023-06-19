@@ -16,7 +16,7 @@ const Header = () => {
       <section className="relative">
         {/* red section  */}
         <div className="bg-red-600 h-20 relative">
-          <div className="absolute left-0 bottom-0 w-[210px] xxs:w-[280px] sm:w-[400px] ">
+          <div className="absolute left-0 bottom-0 w-[210px] xxs:w-[280px] px-1 sm:w-[400px] mdd:pl-4">
             <img src="/images/logo.png" alt="" />
           </div>
         </div>

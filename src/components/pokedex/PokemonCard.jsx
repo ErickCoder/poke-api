@@ -8,7 +8,7 @@ const pokeLinearGradients = {
 
   "fighting": 'bg-gradient-to-t from-[#CB735D] via-[#F1613C] to-[#96402A]',
   
-  "flying": '',
+  "flying": 'bg-gradient-to-t from-slate-50 via-purple-400 to-yellow-400',
   
   "poison": 'bg-gradient-to-t from-[#CE9BFF] via-[#A564E3] to-[#5B3184]',
   
@@ -18,7 +18,7 @@ const pokeLinearGradients = {
 
   "bug": 'bg-gradient-to-t from-[#AAFFA8] via-[#3BB039] to-[#62DB60]',
   
-  "ghost": 'bg-gradient-to-t from-[#787DDA] via-[#454AA8] to-[#h323569]',
+  "ghost": 'bg-gradient-to-t from-[#787DDA] via-[#454AA8] to-[#323569]',
 
   "steel": 'bg-gradient-to-t from-[#A8A8A8] via-[#728881] to-[#5E736C]',
 
@@ -28,9 +28,9 @@ const pokeLinearGradients = {
 
   "grass": 'bg-gradient-to-t from-[#CAE099] via-[#ABDAC6] to-[#7EC6C5]',
   
-  "electric": '',
+  "electric": 'bg-gradient-to-t from-yellow-200 to-yellow-500',
 
-  "psychic": '',
+  "psychic": 'bg-gradient-to-b from-lime-800 via-lime-600 to-slate-100',
 
   "ice": 'bg-gradient-to-t from-[#BDEBFE] via-[#64CBF5] to-[#6FBEDF]',
 
@@ -40,7 +40,7 @@ const pokeLinearGradients = {
 
   "fairy": 'bg-gradient-to-t from-[#CD7D98] via-[#C23867] to-[#971B45]',
 
-  "unknown": '',
+  "unknown": 'bg-gradient-to-t from-slate-500 via-purple-400 to-slate-800',
   
   "shadow": 'bg-gradient-to-t from-[#5A5E5D] via-[#0D1211] to-[#030706]'
 }
@@ -49,7 +49,7 @@ const pokeLinearGradients = {
 const textColor = {
   "normal": 'text-[#735259]',
   "fighting": 'text-[#96402Ah]',
-  "flying": 'text-[#F0FF47]',
+  "flying": 'text-purple-400',
   "poison": 'text-[#5B3184]',
   "ground": 'text-[#654008]',
   "rock": 'text-[#7E7E7E]',
@@ -65,14 +65,14 @@ const textColor = {
   "dragon": 'text-[#478A93]',
   "dark": 'text-[#030706]',
   "fairy": 'text-[#971B45]',
-  "unknown": 'text-[#2B2118]',
+  "unknown": 'text-slate-500',
   "shadow": 'text-[#16E0BD]'
 }
 
 const borderColor = {
   "normal": 'border-[#BC6B7C]',
-  "fighting": 'border-[#96402Ah]',
-  "flying": 'border-[#F0FF47]',
+  "fighting": 'border-[#96402A]',
+  "flying": 'border-purple-400',
   "poison": 'border-[#5B3184]',
   "ground": 'border-[#654008]',
   "rock": 'border-[#7E7E7E]',
@@ -88,7 +88,7 @@ const borderColor = {
   "dragon": 'border-[#478A93]',
   "dark": 'border-[#030706]',
   "fairy": 'border-[#971B45]',
-  "unknown": 'border-[#2B2118]',
+  "unknown": 'border-slate-500',
   "shadow": 'border-[#16E0BD]'
 }
 
@@ -112,9 +112,9 @@ const PokemonCard = ({ pokemonUrl }) => {
 
 
   return (
-    <Link className={`border-[10px] rounded-xl ${borderColor[pokemon?.types[0].type.name]}`} to={`/pokedex/${pokemon?.name}`}>
+    <Link className={`border-[10px] rounded-xl capitalize ${borderColor[pokemon?.types[0].type.name]} hvr-grow `} to={`/pokedex/${pokemon?.name}`}>
       {/* top section  */}
-      <section className={`relative h-40 ${pokeLinearGradients[pokemon?.types[0].type.name]}`}>
+      <section className={`relative h-36 ${pokeLinearGradients[pokemon?.types[0].type.name]}`}>
         <div className='absolute px-12 -bottom-14'>
           <img
             src={pokemon?.sprites.other['official-artwork'].front_default}
@@ -125,13 +125,13 @@ const PokemonCard = ({ pokemonUrl }) => {
 
       {/* bottom section  */}
       <section>
-        <h3 className={`mt-14 text-center font-bold  text-2xl ${textColor[pokemon?.types[0].type.name]}`}>{pokemon?.name}</h3>
+        <h3 className={`mt-14 text-center font-bold text-2xl ${textColor[pokemon?.types[0].type.name]}`}>{pokemon?.name}</h3>
         <h5 className='text-center font-semibold text-[#4F4F4F]'>{formatTypePokemon(pokemon?.types)}</h5>
         <p className='text-center pb-3 pt-1 text-sm text-[#9F9F9F]'>Type</p>
 
         <hr />
 
-        <section className='grid gap-4 grid-cols-[repeat(auto-fill,_110px)] px-3 pt-3 place-content-between'>
+        <section className='grid grid-cols-[repeat(auto-fill,_110px)] px-3 pt-2 place-content-between'>
          {/*  Generar lista de stats */}
 
         {
