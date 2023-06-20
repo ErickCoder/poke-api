@@ -7,17 +7,61 @@ import './styles/CardHover.css'
 
 const Pokedex = () => {
   const [pokemons, setPokemons] = useState([]);
-  const nameTrainer = useSelector((store) => store.nameTrainer);
   const [namePokemon, setNamePokemon] = useState("");
-
   const [types, setTypes] = useState([]);
-
   const [currentType, setCurrentType] = useState("")
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const nameTrainer = useSelector((store) => store.nameTrainer);
 
   const pokemonsByName = pokemons.filter((pokemon) =>
     pokemon.name.includes(namePokemon.toLowerCase().trim())
   );
 
+  const paginationLogic = () => {
+    // Cantidad de pokemons por página
+    const POKEMONS_PER_PAGE = 12
+
+    // Pokemons que se van a mostrar en la página actual
+    const sliceStart = (currentPage - 1) * POKEMONS_PER_PAGE
+    const sliceEnd = sliceStart + POKEMONS_PER_PAGE
+
+    const pokemonInPage = pokemonsByName.slice(sliceStart, sliceEnd)
+
+    // Última página
+    const lastPage = Math.ceil(pokemonsByName.length / POKEMONS_PER_PAGE) || 1
+
+    // Bloque actual
+    const PAGES_PER_BLOCK = 5
+    const actualBlock = Math.ceil(currentPage / PAGES_PER_BLOCK)
+
+    // Páginas que se van a mostrar en el bloque actual
+    const pagesInBlock = []
+    const minPage = (actualBlock - 1) * PAGES_PER_BLOCK + 1
+    const maxPage = actualBlock * PAGES_PER_BLOCK
+    for (let i = minPage; i <= maxPage; i++) {
+      if (i <= lastPage) {
+        pagesInBlock.push(i)
+      }
+    }
+    return { pokemonInPage, lastPage, pagesInBlock }
+  }
+
+  const { lastPage, pagesInBlock, pokemonInPage } = paginationLogic()
+
+  const handleClickPrevious = () => {
+    const newCurrentPage = currentPage - 1
+    if (newCurrentPage >= 1) {
+      setCurrentPage(newCurrentPage)
+    }
+  }
+
+  const handleClickNext = () => {
+    const newCurrentPage = currentPage + 1
+    if (newCurrentPage <= lastPage) {
+      setCurrentPage(newCurrentPage)
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,10 +73,8 @@ const Pokedex = () => {
   }
 
   useEffect(() => {
-
     if (!currentType) {
-
-      const URL = "https://pokeapi.co/api/v2/pokemon?limit=40";
+      const URL = "https://pokeapi.co/api/v2/pokemon?limit=1281";
 
       axios
         .get(URL)
@@ -101,7 +143,29 @@ const Pokedex = () => {
         </select>
       </form>
 
-      <PokemonsList pokemons={pokemonsByName} />
+      {/* Paginación */}
+      <ul className="flex gap-2 justify-center p-4 px-2 flex-wrap">
+
+        {/* Lógica de la primera página */}
+        <li onClick={() => setCurrentPage(1)} className="p-3 bg-red-600 font-bold text-white rounded-md cursor-pointer">{"<<"}</li>
+
+        {/* Lógica de la página anterior */}
+        <li onClick={handleClickPrevious} className="p-3 bg-red-600 font-bold text-white rounded-md cursor-pointer">{"<"}</li>
+        {
+          pagesInBlock.map(numberPage =>
+            <li
+              onClick={() => setCurrentPage(numberPage)}
+              className={`p-3 bg-red-600 font-bold text-white rounded-md cursor-pointer ${numberPage === currentPage && "bg-red-500 p-4"}`}
+              key={numberPage}>{numberPage}</li>)
+        }
+        {/* Lógica de la página siguiente */}
+        <li onClick={handleClickNext} className="p-3 bg-red-600 font-bold text-white rounded-md cursor-pointer">{">"}</li>
+
+        {/* Última página */}
+        <li onClick={() => setCurrentPage(lastPage)} className="p-3 bg-red-600 font-bold text-white rounded-md cursor-pointer">{">>"}</li>
+      </ul>
+
+      <PokemonsList pokemons={pokemonInPage} />
     </main>
   );
 };
