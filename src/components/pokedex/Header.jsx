@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux"
 import { setNameTrainer } from "../../store/slice/nameTrainer.slice"
 
-const Header = ({ handleDrakMode, isDark, setIsDark }) => {
+const Header = ({ isDark }) => {
 
 
   const dispatch = useDispatch()

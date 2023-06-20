@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Header from "../components/pokedex/Header";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -91,7 +91,7 @@ const bgColor = {
   "shadow": 'bg-[#16E0BD]'
 }
 
-const PokemonId = () => {
+const PokemonId = ({ isDark, handleDarkMode }) => {
   const [pokemon, setPokemon] = useState(null);
   console.log({ pokemon })
   const { pokemonName } = useParams();
@@ -112,8 +112,12 @@ const PokemonId = () => {
   }, []);
 
   return (
-    <main>
-      <Header />
+    <main className={`${isDark ? 'bg-black' : 'bg-white'}`}>
+      <Header isDark={isDark} />
+
+      <div className="pl-3 pt-4">
+        <button className={`${isDark ? 'text-white' : 'text-black'} p-1 text-2xl`} onClick={handleDarkMode}><i className='bx bxs-moon'></i></button>
+      </div>
 
       <section className="my-[80px] mx-3 mdd:mx-[80px] mdd:my-[120px] max-w-[1024px] lgg+1:mx-auto">
 
@@ -130,7 +134,7 @@ const PokemonId = () => {
 
         {/* pokemon id  */}
         <div className="mt-6 flex justify-center">
-          <h2 className={`text-center text-3xl mt-2 mdd:mt-8 inline py-1 px-4 font-medium border-[3px] border-gray-100 ${textColor[pokemon?.types[0].type.name]}`}>#{pokemon?.id}</h2>
+          <h2 className={`text-center text-3xl mt-2 mdd:mt-8 inline py-1 px-4 font-medium  ${isDark ? 'border-gray-400 border-2' : 'border-gray-100 border-[3px]'}  ${textColor[pokemon?.types[0].type.name]}`}>#{pokemon?.id}</h2>
         </div>
 
         {/* pokemn name   */}
@@ -139,24 +143,24 @@ const PokemonId = () => {
         {/*   height, weight */}
         <section className="flex justify-center gap-12 pt-6">
           <div>
-            <h4 className="font-medium">Height</h4>
-            <p className="font-bold text-center">{pokemon?.height}</p>
+            <h4 className={`font-medium ${isDark ? 'text-slate-100' : 'text-black'}`}>Height</h4>
+            <p className={`font-bold text-center ${isDark ? 'text-slate-100' : 'text-black'}`}>{pokemon?.height}</p>
           </div>
 
           <div>
-            <h4 className="font-medium">Weight</h4>
-            <p className="font-bold text-center">{pokemon?.weight}</p>
+            <h4 className={`font-medium ${isDark ? 'text-slate-100' : 'text-black'}`}>Weight</h4>
+            <p className={`font-bold text-center ${isDark ? 'text-slate-100' : 'text-black'}`}>{pokemon?.weight}</p>
           </div>
         </section>
 
         {/* type and abilities  */}
         <section className="grid grid-cols gap-6 justify-center mdd:grid-cols-2 mt-6 justify-items-center capitalize">
           <div>
-            <h2 className="text-center font-semibold">Type</h2>
+            <h2 className={`${isDark ? 'text-slate-100' : 'text-black'} text-center font-semibold`}>Type</h2>
             <div className="mt-4 flex gap-4 lgg:flex lgg:gap-6 text-balck">
               {
                 pokemon?.types.map((type) =>
-                  <span className={`px-3 py-1 lgg:px-6 lgg:py-1 text-white ${bgColor[pokemon?.types[0].type.name]}`} key={type.type.url}>{type.type.name}</span>
+                  <span className={`px-3 py-1 lgg:px-6 lgg:py-1 ${bgColor[pokemon?.types[0].type.name]} ${isDark ? 'text-black' : 'text-white'}`} key={type.type.url}>{type.type.name}</span>
                 )
               }
             </div>
@@ -164,11 +168,11 @@ const PokemonId = () => {
 
 
           <div>
-            <h2 className="text-center font-semibold">Abilities</h2>
-            <div className="mt-4 flex gap-4 lgg:flex lgg:gap-6 text-black">
+            <h2 className={`${isDark ? 'text-white' : 'text-black'} text-center font-semibold`}>Abilities</h2>
+            <div className="mt-4 flex gap-4 lgg:flex lgg:gap-6">
               {
                 pokemon?.abilities.slice(0, 2).map((ability) => (
-                  <span className="border-[1px] py-1 px-3 border-gray-300 lgg:px-6 lgg:py-1" key={ability.ability.url}>{ability.ability.name}</span>
+                  <span className={`border-[1px] py-1 px-3 lgg:px-6 lgg:py-1 ${isDark ? 'border-gray-600 text-white' : 'border-gray-300 text-black'}`} key={ability.ability.url}>{ability.ability.name}</span>
                 ))
               }
             </div>
@@ -179,7 +183,7 @@ const PokemonId = () => {
         <article>
           {/* stats */}
           <div className="flex justify-between items-center gap-4 mdd:gap-8 pt-12">
-            <h3 className="font-semibold p-0 text-2xl mdd:text-3xl">Stats</h3>{" "}
+            <h3 className={`${isDark ? 'text-white' : 'text-black'} font-semibold p-0 text-2xl mdd:text-3xl`}>Stats</h3>{" "}
             <div className="w-full h-[2px] bg-[#D3D3D3]"></div>
             <img src="/images/pokeballMain.png" alt="" />
           </div>
@@ -190,7 +194,7 @@ const PokemonId = () => {
                 key={stat.stat.url}
               >
                 <section className="flex justify-between px-2 mdd:px-3">
-                  <h5 className="text-sm mdd:text-base">{stat?.stat.name.toUpperCase()}</h5>
+                  <h5 className={`${isDark ? 'text-white' : 'text-black'} text-sm mdd:text-base`}>{stat?.stat.name.toUpperCase()}</h5>
                   <span>{stat?.base_stat}</span>
                 </section>
 
@@ -211,7 +215,7 @@ const PokemonId = () => {
       <section className='mx-3 pb-8 lgg:max-w-[1024px] mdd:mx-[80px] lgg+1:mx-auto'>
 
         <div className='flex justify-between items-center gap-4 mdd:gap-8'>
-          <h3 className='text-2xl mdd:text-4xl font-bold p-2'>Movements</h3>
+          <h3 className={`${isDark ? 'text-white' : 'text-black'} text-2xl mdd:text-4xl font-bold p-2`}>Movements</h3>
           <div className="w-full h-[2px] bg-[#D3D3D3]"></div>
           <img src="/images/pokeballMain.png" alt="" />
         </div>
@@ -223,7 +227,7 @@ const PokemonId = () => {
         </section>
 
       </section>
-    </main>
+    </main >
   );
 };
 export default PokemonId;

@@ -92,7 +92,7 @@ const borderColor = {
   "shadow": 'border-[#16E0BD]'
 }
 
-const PokemonCard = ({ pokemonUrl }) => {
+const PokemonCard = ({ pokemonUrl, isDark }) => {
   const [pokemon, setPokemon] = useState(null)
 
 
@@ -129,7 +129,7 @@ const PokemonCard = ({ pokemonUrl }) => {
       {/* bottom section  */}
       <section>
         <h3 className={`mt-14 text-center font-bold text-2xl ${textColor[pokemon?.types[0].type.name]}`}>{pokemon?.name}</h3>
-        <h5 className='text-center font-semibold text-[#4F4F4F]'>{formatTypePokemon(pokemon?.types)}</h5>
+        <h5 className={`text-center font-semibold ${isDark ? 'text-slate-200' : 'text-[#4F4F4F]'} `}>{formatTypePokemon(pokemon?.types)}</h5>
         <p className='text-center pb-3 pt-1 text-sm text-[#9F9F9F]'>Type</p>
 
         <hr />
@@ -140,7 +140,7 @@ const PokemonCard = ({ pokemonUrl }) => {
           {
             pokemon?.stats.slice(0, 4).map(stat => (
               <div className='text-center grid content-center ' key={stat.stat.url}>
-                <h6 className='font-normal text-lg text-[#9F9F9F]'>{stat.stat.name}</h6>
+                <h6 className={`${isDark ? 'text-slate-100' : 'text-black'} font-normal text-base`}>{stat.stat.name}</h6>
                 <span className={`${textColor[pokemon?.types[0].type.name]} font-bold pb-5`}>{stat.base_stat}</span>
               </div>
             ))

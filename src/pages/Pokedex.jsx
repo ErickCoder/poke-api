@@ -5,13 +5,12 @@ import axios from "axios";
 import PokemonsList from "../components/pokedex/PokemonsList";
 import "./styles/CardHover.css";
 
-const Pokedex = () => {
+const Pokedex = ({ isDark, handleDarkMode }) => {
   const [pokemons, setPokemons] = useState([]);
   const [namePokemon, setNamePokemon] = useState("");
   const [types, setTypes] = useState([]);
   const [currentType, setCurrentType] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [isDark, setIsDark] = useState(false)
 
   const nameTrainer = useSelector((store) => store.nameTrainer);
 
@@ -46,16 +45,6 @@ const Pokedex = () => {
       }
     }
 
-    const handleDarkMode = () => setIsDark(!isDark)
-
-    useEffect(() => {
-      if (isDark) {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
-    }, [isDark])
-
     return { pokemonInPage, lastPage, pagesInBlock };
   };
 
@@ -84,7 +73,6 @@ const Pokedex = () => {
     setCurrentType(e.target.value);
   };
 
-  const handleDarkMode = () => setIsDark(!isDark)
 
   useEffect(() => {
     if (!currentType) {
@@ -120,17 +108,9 @@ const Pokedex = () => {
     }
   }, [currentType]);
 
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  }, [isDark])
-
   return (
     <main className={`${isDark ? 'bg-black' : 'bg-white'}`}>
-      <Header handleDarkMode={handleDarkMode} isDark={isDark} setIsDark={setIsDark} />
+      <Header handleDarkMode={handleDarkMode} isDark={isDark} />
 
       <div className="pl-3 pt-4">
         <button className={`${isDark ? 'text-white' : 'text-black'} p-1 text-2xl`} onClick={handleDarkMode}><i className='bx bxs-moon'></i></button>
@@ -178,7 +158,7 @@ const Pokedex = () => {
         </select>
       </form>
 
-      <PokemonsList pokemons={pokemonInPage} />
+      <PokemonsList pokemons={pokemonInPage} isDark={isDark} />
 
       <div className="pb-10 mt-4">
         <ul className="flex gap-2 justify-center p-4 px-2 flex-wrap ">
