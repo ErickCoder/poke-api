@@ -10,6 +10,8 @@ export default {
       mdd: '768px',
       lgg: '1024px',
       'lgg+1': '1200px',
+      xl:'1440px',
+      xxl:'2560'
     },
     extend: {},
   },

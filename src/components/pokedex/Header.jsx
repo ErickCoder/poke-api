@@ -23,7 +23,7 @@ const Header = () => {
 
         {/* black section  */}
         <div className="bg-black h-12">
-          <button onClick={handleClickLogout} className="absolute right-28 top-1/2 -translate-x-1/2 -bottom-4 text-white z-20"><i class='bx bx-exit'></i> Log Out</button>
+          <button onClick={handleClickLogout} className="absolute left-14 top-1/2 -translate-x-1/2 mdd:right-28 mdd:top-1/2 mdd:-translate-x-1/2 -bottom-4 text-white"><i class='bx bx-exit'></i> Log Out</button>
 
         </div>
 

@@ -115,17 +115,14 @@ const PokemonId = () => {
     <main>
       <Header />
 
-      <section className="my-14 xxm:my-20 mx-3 mdd:mx-[80px] mdd:my-[180px] max-w-[1024px] lgg+1:mx-auto ">
+      <section className="my-[80px] mx-3 mdd:mx-[80px] mdd:my-[120px] max-w-[1024px] lgg+1:mx-auto">
 
         {/* Gradiant and image */}
-        <section
-          className={`relative h-24 mdd:rounded-none rounded-xl mdd:h-36 ${pokeLinearGradients[pokemon?.types[0].type.name]
-            }`}
-        >
-          <div className="absolute px-12 left-1/2 -translate-x-1/2 bottom-1 lgg:-bottom-4">
+        <section className={`relative mdd:h-36 h-28 ${pokeLinearGradients[pokemon?.types[0].type.name]}`}>
+          <div className='absolute mdd:-bottom-2 -bottom-1 left-1/2 -translate-x-1/2'>
             <img
-              className="max-h-[200px] mdd:max-h-[314px]"
-              src={pokemon?.sprites.other["official-artwork"].front_default}
+              className="max-w-[314px] mdd:px-8 px-[70px]"
+              src={pokemon?.sprites.other['official-artwork'].front_default}
               alt={pokemon?.name}
             />
           </div>
