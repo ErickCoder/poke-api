@@ -94,7 +94,6 @@ const borderColor = {
 
 const PokemonCard = ({ pokemonUrl }) => {
   const [pokemon, setPokemon] = useState(null)
-  console.log(pokemon)
 
 
 
@@ -104,12 +103,15 @@ const PokemonCard = ({ pokemonUrl }) => {
     return titleTypes
   }
 
+
+
   useEffect(() => {
     axios
       .get(pokemonUrl)
       .then(({ data }) => setPokemon(data))
       .then((err) => console.log(err))
   }, [])
+
 
 
   return (
@@ -147,6 +149,7 @@ const PokemonCard = ({ pokemonUrl }) => {
         </section>
 
       </section>
+
     </Link>
   )
 }

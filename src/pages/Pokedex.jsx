@@ -11,6 +11,7 @@ const Pokedex = () => {
   const [types, setTypes] = useState([]);
   const [currentType, setCurrentType] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isDark, setIsDark] = useState(false)
 
   const nameTrainer = useSelector((store) => store.nameTrainer);
 
@@ -44,6 +45,17 @@ const Pokedex = () => {
         pagesInBlock.push(i);
       }
     }
+
+    const handleDarkMode = () => setIsDark(!isDark)
+
+    useEffect(() => {
+      if (isDark) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    }, [isDark])
+
     return { pokemonInPage, lastPage, pagesInBlock };
   };
 
@@ -71,6 +83,8 @@ const Pokedex = () => {
   const handleChangeType = (e) => {
     setCurrentType(e.target.value);
   };
+
+  const handleDarkMode = () => setIsDark(!isDark)
 
   useEffect(() => {
     if (!currentType) {
@@ -106,16 +120,29 @@ const Pokedex = () => {
     }
   }, [currentType]);
 
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [isDark])
+
   return (
-    <main className="">
-      <Header />
+    <main className={`${isDark ? 'bg-black' : 'bg-white'}`}>
+      <Header handleDarkMode={handleDarkMode} isDark={isDark} setIsDark={setIsDark} />
+
+      <div className="pl-3 pt-4">
+        <button className={`${isDark ? 'text-white' : 'text-black'} p-1 text-2xl`} onClick={handleDarkMode}><i className='bx bxs-moon'></i></button>
+      </div>
+
       <div className="min-w-[100%] lgg:pt-6 text-center mdd:text-center p-2 flex justify-center max-w-[1024px]">
+
         <p className="mt-6 text-[#FE1936] font-bold">
           Welcome {nameTrainer}!
-          <label className="text-black font-normal">
-            {" "}
-            Here, you can find your favorite Pokemon.
-          </label>
+          <span className={`${isDark ? 'text-white' : 'text-black'} font-normal`}>
+            {' '} Here, you can find your favorite Pokemon.
+          </span>
         </p>
       </div>
 
@@ -137,11 +164,11 @@ const Pokedex = () => {
 
 
 
-        <select 
+        <select
           onChange={handleChangeType}
           className="outline-none drop-shadow-md w-[250px] mdd:w-[400px] py-2 px-2 lgg:py-3 lgg:h-[48px]"
         >
-          <option  className=" focus:ring-red-400" value="">All pokemons</option>
+          <option className=" focus:ring-red-400" value="">All pokemons</option>
           {types.map((type) => (
             <option className="focus:ring-red-400" value={type.name} key={type.url}>
               {" "}
@@ -173,9 +200,8 @@ const Pokedex = () => {
           {pagesInBlock.map((numberPage) => (
             <li
               onClick={() => setCurrentPage(numberPage)}
-              className={`p-3 bg-red-600 font-bold hover:bg-red-400 text-white rounded-md cursor-pointer ${
-                numberPage === currentPage && "bg-red-500 hover:bg-red-400 p-4"
-              }`}
+              className={`p-3 bg-red-600 font-bold hover:bg-red-400 text-white rounded-md cursor-pointer ${numberPage === currentPage && "bg-red-500 hover:bg-red-400 p-4"
+                }`}
               key={numberPage}
             >
               {numberPage}
