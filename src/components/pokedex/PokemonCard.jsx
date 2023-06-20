@@ -146,7 +146,6 @@ const PokemonCard = ({ pokemonUrl }) => {
 
         </section>
 
-        <section>{/* list of states  */}</section>
       </section>
     </Link>
   )

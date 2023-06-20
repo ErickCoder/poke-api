@@ -115,17 +115,16 @@ const PokemonId = () => {
     <main>
       <Header />
 
-      <section className="my-14 mx-3 mdd:mx-[80px] mdd:my-[180px] max-w-[1024px] lgg+1:mx-auto">
-        {/*  Informacion detalle de pokemon */}
+      <section className="my-14 xxm:my-20 mx-3 mdd:mx-[80px] mdd:my-[180px] max-w-[1024px] lgg+1:mx-auto ">
 
         {/* Gradiant and image */}
         <section
-          className={`relative h-24 rounded-xl mdd:h-36 ${pokeLinearGradients[pokemon?.types[0].type.name]
+          className={`relative h-24 mdd:rounded-none rounded-xl mdd:h-36 ${pokeLinearGradients[pokemon?.types[0].type.name]
             }`}
         >
-          <div className="absolute px-12 left-1/2 max-h-[314px] -translate-x-1/2 bottom-1 lgg:-bottom-4">
+          <div className="absolute px-12 left-1/2 -translate-x-1/2 bottom-1 lgg:-bottom-4">
             <img
-              className=""
+              className="max-h-[200px] mdd:max-h-[314px]"
               src={pokemon?.sprites.other["official-artwork"].front_default}
               alt={pokemon?.name}
             />
@@ -134,7 +133,7 @@ const PokemonId = () => {
 
         {/* pokemon id  */}
         <div className="mt-6 flex justify-center">
-          <h2 className={`text-center text-3xl mt-2 mdd:mt-8 inline py-1 px-4 font-medium border-2 border-gray-100 ${textColor[pokemon?.types[0].type.name]}`}>#{pokemon?.id}</h2>
+          <h2 className={`text-center text-3xl mt-2 mdd:mt-8 inline py-1 px-4 font-medium border-[3px] border-gray-100 ${textColor[pokemon?.types[0].type.name]}`}>#{pokemon?.id}</h2>
         </div>
 
         {/* pokemn name   */}
@@ -160,7 +159,7 @@ const PokemonId = () => {
             <div className="mt-4 flex gap-4 lgg:flex lgg:gap-6 text-balck">
               {
                 pokemon?.types.map((type) =>
-                  <span className={`border-[1px] px-3 py-1 lgg:px-6 lgg:py-1 text-white ${bgColor[pokemon?.types[0].type.name]}`} key={type.type.url}>{type.type.name}</span>
+                  <span className={`px-3 py-1 lgg:px-6 lgg:py-1 text-white ${bgColor[pokemon?.types[0].type.name]}`} key={type.type.url}>{type.type.name}</span>
                 )
               }
             </div>
@@ -172,7 +171,7 @@ const PokemonId = () => {
             <div className="mt-4 flex gap-4 lgg:flex lgg:gap-6 text-black">
               {
                 pokemon?.abilities.slice(0, 2).map((ability) => (
-                  <span className="border-[1px] px-3 border-gray-300 lgg:px-6 lgg:py-1" key={ability.ability.url}>{ability.ability.name}</span>
+                  <span className="border-[1px] py-1 px-3 border-gray-300 lgg:px-6 lgg:py-1" key={ability.ability.url}>{ability.ability.name}</span>
                 ))
               }
             </div>
@@ -182,9 +181,10 @@ const PokemonId = () => {
 
         <article>
           {/* stats */}
-          <div className="flex items-center gap-4 mdd:gap-8 pt-12 max-w-[680px]">
-            <p className="font-semibold p-0 text-2xl mdd:text-3xl">Stats</p>{" "}
-            <div className="w-[680px] h-[2px] bg-gray-200 flex justify-end"></div>
+          <div className="flex justify-between items-center gap-4 mdd:gap-8 pt-12">
+            <h3 className="font-semibold p-0 text-2xl mdd:text-3xl">Stats</h3>{" "}
+            <div className="w-full h-[2px] bg-[#D3D3D3]"></div>
+            <img src="/images/pokeballMain.png" alt="" />
           </div>
           <section className="mt-8">
             {pokemon?.stats.map((stat) => (
@@ -208,6 +208,23 @@ const PokemonId = () => {
             ))}
           </section>
         </article>
+      </section>
+
+      {/* Movements */}
+      <section className='mx-3 pb-8 lgg:max-w-[1024px] mdd:mx-[80px] lgg+1:mx-auto'>
+
+        <div className='flex justify-between items-center gap-4 mdd:gap-8'>
+          <h3 className='text-2xl mdd:text-4xl font-bold p-2'>Movements</h3>
+          <div className="w-full h-[2px] bg-[#D3D3D3]"></div>
+          <img src="/images/pokeballMain.png" alt="" />
+        </div>
+
+        <section className="mt-4 mdd:mt-8 p-2  flex flex-wrap gap-4 mdd:gap-8">
+          {pokemon?.moves.map((move) => (
+            <span className='p-2 bg-gray-200 rounded-2xl text-xs mdd:text-lg' key={move?.move.url}>{move?.move.name}</span>
+          ))}
+        </section>
+
       </section>
     </main>
   );

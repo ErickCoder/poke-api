@@ -14,11 +14,10 @@ const Pokedex = () => {
 
   const [currentType, setCurrentType] = useState("")
 
-console.log(currentType)
-
   const pokemonsByName = pokemons.filter((pokemon) =>
     pokemon.name.includes(namePokemon.toLowerCase().trim())
   );
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,8 +29,8 @@ console.log(currentType)
   }
 
   useEffect(() => {
-    
-    if(!currentType){
+
+    if (!currentType) {
 
       const URL = "https://pokeapi.co/api/v2/pokemon?limit=40";
 
@@ -41,7 +40,7 @@ console.log(currentType)
         .catch((err) => console.log(err));
 
     }
-  
+
   }, [currentType]);
 
   useEffect(() => {
@@ -54,37 +53,37 @@ console.log(currentType)
   }, []);
 
   useEffect(() => {
-    if(currentType){
-    const URL= `https://pokeapi.co/api/v2/type/${currentType}`
+    if (currentType) {
+      const URL = `https://pokeapi.co/api/v2/type/${currentType}`
 
-    axios
-    .get(URL)
-    .then(({ data }) => {
-      
-        const pokemonsByType = data.pokemon.map(pokemon =>pokemon.pokemon)
-        setPokemons(pokemonsByType)
-    
-    })
-    .catch((err) => console.log(err));
+      axios
+        .get(URL)
+        .then(({ data }) => {
+
+          const pokemonsByType = data.pokemon.map(pokemon => pokemon.pokemon)
+          setPokemons(pokemonsByType)
+
+        })
+        .catch((err) => console.log(err));
 
     }
 
   }, [currentType])
-  
+
 
 
 
   return (
     <main className="">
       <Header />
-        <div className='min-w-[100%] lgg:pt-6 text-center mdd:text-center p-2 flex justify-center max-w-[1024px]'>
+      <div className='min-w-[100%] lgg:pt-6 text-center mdd:text-center p-2 flex justify-center max-w-[1024px]'>
         <p className="mt-6 text-[#FE1936] font-bold">
-        Welcome {nameTrainer}!
-        <label className="text-black font-normal"> Here, you can find your favorite Pokemon.</label>
-      </p>
-        </div>
-    
-       <form onSubmit={handleSubmit} className="mdd:flex flex flex-col items-center gap-2 mdd:justify-center mdd:gap-3 mdd:py-4 lgg:flex lgg:flex-row lgg:justify-around max-w-[1024px] mx-auto">
+          Welcome {nameTrainer}!
+          <label className="text-black font-normal"> Here, you can find your favorite Pokemon.</label>
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="mdd:flex flex flex-col items-center gap-2 mdd:justify-center mdd:gap-3 mdd:py-4 lgg:flex lgg:flex-row lgg:justify-around max-w-[1024px] mx-auto">
         <div className="py-4 ">
           <input className="drop-shadow-md outline-none py-2 px-2 mdd:w-96 mdd:h-[48px]"
             id="namePokemon"
@@ -102,10 +101,9 @@ console.log(currentType)
         </select>
       </form>
 
-     
-
       <PokemonsList pokemons={pokemonsByName} />
     </main>
   );
 };
 export default Pokedex;
+

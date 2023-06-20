@@ -9,7 +9,7 @@ export default {
       smm: '640px',
       mdd: '768px',
       lgg: '1024px',
-      'lgg+1': '1025px',
+      'lgg+1': '1200px',
     },
     extend: {},
   },
