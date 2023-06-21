@@ -47,7 +47,7 @@ const pokeLinearGradients = {
 
 const textColor = {
   "normal": 'text-[#735259]',
-  "fighting": 'text-[#96402Ah]',
+  "fighting": 'text-[#96402A]',
   "flying": 'text-purple-400',
   "poison": 'text-[#5B3184]',
   "ground": 'text-[#654008]',
@@ -62,7 +62,7 @@ const textColor = {
   "psychic": 'text-[#65743A]',
   "ice": 'text-[#6FBEDF]',
   "dragon": 'text-[#478A93]',
-  "dark": 'text-[#030706]',
+  "dark": 'text-[#55638B]',
   "fairy": 'text-[#971B45]',
   "unknown": 'text-slate-500',
   "shadow": 'text-[#16E0BD]'
@@ -115,8 +115,10 @@ const PokemonId = ({ isDark, handleDarkMode }) => {
     <main className={`${isDark ? 'bg-black' : 'bg-white'}`}>
       <Header isDark={isDark} />
 
-      <div className="pl-3 pt-4">
-        <button className={`${isDark ? 'text-white' : 'text-black'} p-1 text-2xl`} onClick={handleDarkMode}><i className='bx bxs-moon'></i></button>
+      <div className="pl-3 pt-4 flex gap-2">
+        {/* return button  */}
+        <Link to='/pokedex'><i className={`${isDark ? 'text-white hover:text-red-500' : 'text-black hover:text-red-500'} p-2 bx bx-arrow-back text-2xl font-bold`}></i></Link>   
+        <button className={`${isDark ? 'text-white hover:text-yellow-400 ' : 'text-black hover:text-blue-900 '} p-1 text-2xl`} onClick={handleDarkMode}><i className='bx bxs-moon'></i></button>       
       </div>
 
       <section className="my-[80px] mx-3 mdd:mx-[80px] mdd:my-[120px] max-w-[1024px] lgg+1:mx-auto">
@@ -134,7 +136,7 @@ const PokemonId = ({ isDark, handleDarkMode }) => {
 
         {/* pokemon id  */}
         <div className="mt-6 flex justify-center">
-          <h2 className={`text-center text-3xl mt-2 mdd:mt-8 inline py-1 px-4 font-medium  ${isDark ? 'border-gray-400 border-2' : 'border-gray-100 border-[3px]'}  ${textColor[pokemon?.types[0].type.name]}`}>#{pokemon?.id}</h2>
+          <h2 className={`text-center text-3xl mt-2 mdd:mt-8 inline py-1 px-4 font-medium  ${isDark ? 'border-gray-400 border-2 rounded-md' : 'border-gray-100 border-[3px]'}  ${textColor[pokemon?.types[0].type.name]}`}>#{pokemon?.id}</h2>
         </div>
 
         {/* pokemn name   */}
@@ -177,12 +179,12 @@ const PokemonId = ({ isDark, handleDarkMode }) => {
               }
             </div>
           </div>
-        </section>
-
+          
+        </section>         
 
         <article>
           {/* stats */}
-          <div className="flex justify-between items-center gap-4 mdd:gap-8 pt-12">
+          <div className="flex justify-between items-center gap-4 mdd:gap-8 pt-10">
             <h3 className={`${isDark ? 'text-white' : 'text-black'} font-semibold p-0 text-2xl mdd:text-3xl`}>Stats</h3>{" "}
             <div className="w-full h-[2px] bg-[#D3D3D3]"></div>
             <img src="/images/pokeballMain.png" alt="" />
@@ -202,7 +204,7 @@ const PokemonId = ({ isDark, handleDarkMode }) => {
                 <div className="bg-gray-200 h-8 overflow-hidden rounded-md">
                   <div
                     style={{ width: percentPorgressStat(stat.base_stat) }}
-                    className={`h-full bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-700 `}
+                    className={`h-full ${pokeLinearGradients[pokemon?.types[0].type.name]} `}
                   ></div>
                 </div>
               </article>

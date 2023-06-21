@@ -6,9 +6,16 @@ import ProtectedRoutes from './components/auth/ProtectedRoutes'
 import { useState } from 'react'
 
 function App() {
-  const [isDark, setIsDark] = useState(false)
+  const [isDark, setIsDark] = useState(
+    localStorage.getItem('isDark') === 'true'
+  )
 
-  const handleDarkMode = () => setIsDark(!isDark)
+  const handleDarkMode = () => {
+    // const newMode = !isDark
+    setIsDark(!isDark)
+    localStorage.setItem('isDark', !isDark)
+  }
+
   return (
     <section className="font-['Inter']">
       <Routes>

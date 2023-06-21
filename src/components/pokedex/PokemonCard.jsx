@@ -48,7 +48,7 @@ const pokeLinearGradients = {
 
 const textColor = {
   "normal": 'text-[#735259]',
-  "fighting": 'text-[#96402Ah]',
+  "fighting": 'text-[#96402A]',
   "flying": 'text-purple-400',
   "poison": 'text-[#5B3184]',
   "ground": 'text-[#654008]',
@@ -63,7 +63,7 @@ const textColor = {
   "psychic": 'text-[#65743A]',
   "ice": 'text-[#6FBEDF]',
   "dragon": 'text-[#478A93]',
-  "dark": 'text-[#030706]',
+  "dark": 'text-[#55638B]',
   "fairy": 'text-[#971B45]',
   "unknown": 'text-slate-500',
   "shadow": 'text-[#16E0BD]'
@@ -86,7 +86,7 @@ const borderColor = {
   "psychic": 'border-[#65743A]',
   "ice": 'border-[#64CBF5]',
   "dragon": 'border-[#478A93]',
-  "dark": 'border-[#030706]',
+  "dark": 'border-[#1F2433]',
   "fairy": 'border-[#971B45]',
   "unknown": 'border-slate-500',
   "shadow": 'border-[#16E0BD]'
@@ -139,7 +139,7 @@ const PokemonCard = ({ pokemonUrl, isDark }) => {
 
           {
             pokemon?.stats.slice(0, 4).map(stat => (
-              <div className='text-center grid content-center ' key={stat.stat.url}>
+              <div className='text-center grid content-center scr ' key={stat.stat.url}>
                 <h6 className={`${isDark ? 'text-slate-100' : 'text-black'} font-normal text-base`}>{stat.stat.name}</h6>
                 <span className={`${textColor[pokemon?.types[0].type.name]} font-bold pb-5`}>{stat.base_stat}</span>
               </div>
